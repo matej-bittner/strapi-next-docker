@@ -5,10 +5,17 @@ services:
       context: ./frontend
       dockerfile: frontend.prod.dockerfile
       # dockerfile: frontend.dockerfile
+    restart: unless-stopped
     ports:
       - "3000:3000"
     depends_on:
-      - strapi
+      strapi:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -an | grep 3000"]
+      interval: 15s # Zkrácený interval na 10 sekund
+      timeout: 5s # Timeout zkrácen na 5 sekund
+      retries: 5
 
   strapi:
     build:
@@ -32,10 +39,16 @@ services:
     ports:
       - "1337:1337"
     depends_on:
-      - postgresDB
+      postgresDB:
+        condition: service_healthy
     volumes:
       - strapiconfig:/opt/app/config
       - strapiuploads:/opt/app/public/uploads
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -an | grep 1337"]
+      interval: 15s # Zkrácený interval na 10 sekund
+      timeout: 5s # Timeout zkrácen na 5 sekund
+      retries: 5
 
   postgresDB:
     platform: linux/amd64 #for platform error on Apple M1 chips
@@ -49,11 +62,17 @@ services:
       - "5432:5432"
     volumes:
       - strapidb:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME}"]
+      interval: 15s # Zkrácený interval na 10 sekund
+      timeout: 5s # Timeout zkrácen na 5 sekund
+      retries: 5
 
 volumes:
   strapiconfig:
   strapidb:
   strapiuploads:
+
   # strapitestAdminer:
   #   image: adminer
   #   restart: unless-stopped
