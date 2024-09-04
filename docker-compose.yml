@@ -10,8 +10,8 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://next:3000"]
-      interval: 15s
-      timeout: 5s
+      interval: 30s
+      timeout: 10s
       retries: 5
 
   strapi:
@@ -29,8 +29,8 @@ services:
       - strapiuploads:/opt/app/public/uploads
     healthcheck:
       test: ["CMD", "curl", "-f", "http://strapi:1337/admin"]
-      interval: 15s
-      timeout: 5s
+      interval: 30s
+      timeout: 10s
       retries: 5
 
   postgresDB:
