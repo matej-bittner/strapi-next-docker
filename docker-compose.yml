@@ -20,7 +20,18 @@ services:
       dockerfile: backend.prod.dockerfile
     restart: unless-stopped
     environment:
-      # Environment variables...
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: postgresDB
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      NODE_ENV: ${NODE_ENV}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
     depends_on:
       postgresDB:
         condition: service_healthy
@@ -38,7 +49,9 @@ services:
     restart: unless-stopped
     image: postgres:14.5-alpine
     environment:
-      # Environment variables...
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - strapidb:/var/lib/postgresql/data/
     healthcheck:
