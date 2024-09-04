@@ -33,6 +33,9 @@ services:
       - "1337:1337"
     depends_on:
       - postgresDB
+    volumes:
+      - strapiconfig:/opt/app/config
+      - strapiuploads:/opt/app/public/uploads
 
   postgresDB:
     platform: linux/amd64 #for platform error on Apple M1 chips
@@ -44,7 +47,13 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
     ports:
       - "5432:5432"
+    volumes:
+      - strapidb:/var/lib/postgresql/data/
 
+volumes:
+  strapiconfig:
+  strapidb:
+  strapiuploads:
   # strapitestAdminer:
   #   image: adminer
   #   restart: unless-stopped
