@@ -12,7 +12,7 @@ services:
       strapi:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ["CMD", "curl", "-f", "http://localhost:1337"]
       interval: 15s # Zkrácený interval na 10 sekund
       timeout: 5s # Timeout zkrácen na 5 sekund
       retries: 5
