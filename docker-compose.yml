@@ -3,7 +3,8 @@ services:
   next:
     build:
       context: ./frontend
-      dockerfile: frontend.dockerfile
+      dockerfile: frontend.prod.dockerfile
+      # dockerfile: frontend.dockerfile
     ports:
       - "3000:3000"
     depends_on:
@@ -12,7 +13,8 @@ services:
   strapi:
     build:
       context: ./backend
-      dockerfile: backend.dockerfile
+      dockerfile: backend.prod.dockerfile
+      # dockerfile: backend.dockerfile
     restart: unless-stopped
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
@@ -26,6 +28,7 @@ services:
       APP_KEYS: ${APP_KEYS}
       API_TOKEN_SALT: ${API_TOKEN_SALT}
       NODE_ENV: ${NODE_ENV}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
     ports:
       - "1337:1337"
     depends_on:

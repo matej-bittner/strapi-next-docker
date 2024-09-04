@@ -1,3 +1,14 @@
+devlopment
+
+docker compose up
+or docker compose up postgresDB and npm run dev for next and npm run develop for strapi
+
+Dont forget
+
+- uncoment dockerfiles in dockercompose
+  -change in root env node env to production/development
+  -change nex.config.mjs to output snadalone
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
