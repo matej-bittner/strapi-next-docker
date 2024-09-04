@@ -6,8 +6,8 @@ services:
       dockerfile: frontend.prod.dockerfile
       # dockerfile: frontend.dockerfile
     restart: unless-stopped
-    ports:
-      - "3000:3000"
+    # ports:
+    #   - "3000:3000"
     depends_on:
       strapi:
         condition: service_healthy
@@ -25,10 +25,10 @@ services:
     restart: unless-stopped
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
-      DATABASE_HOST: postgresDB
+      # DATABASE_HOST: postgresDB
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USERNAME: ${DATABASE_USERNAME}
-      DATABASE_PORT: ${DATABASE_PORT}
+      # DATABASE_PORT: ${DATABASE_PORT}
       JWT_SECRET: ${JWT_SECRET}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
@@ -36,8 +36,8 @@ services:
       API_TOKEN_SALT: ${API_TOKEN_SALT}
       NODE_ENV: ${NODE_ENV}
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
-    ports:
-      - "1337:1337"
+    # ports:
+    #   - "1337:1337"
     depends_on:
       postgresDB:
         condition: service_healthy
@@ -58,8 +58,8 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
-    ports:
-      - "5432:5432"
+    # ports:
+    #   - "5432:5432"
     volumes:
       - strapidb:/var/lib/postgresql/data/
     healthcheck:
