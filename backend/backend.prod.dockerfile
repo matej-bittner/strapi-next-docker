@@ -15,7 +15,6 @@ RUN npm run build
 # Creating final production image
 FROM node:16-alpine
 RUN apk add --no-cache vips-dev
-RUN apt-get update && apt-get install -y curl
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
